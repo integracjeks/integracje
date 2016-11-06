@@ -42,9 +42,8 @@ namespace Integracje.Helpers
                     cmd.ExecuteNonQuery();
                     connection.Close();
                 }
-                catch (Exception e)
+                catch
                 {
-                    Console.WriteLine(e.StackTrace);
                 }
             }
         }
@@ -80,10 +79,16 @@ namespace Integracje.Helpers
         {
             using (SqlConnection conn = new SqlConnection(CONNECTION_STIRNG))
             {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(createQuery, conn);
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                try
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand(createQuery, conn);
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                catch
+                {
+                }
             }
         }
 
