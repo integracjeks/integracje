@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityHelper", "EntityHelpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integracje.UI", "Integracje.UI\Integracje.UI.csproj", "{6FB5D47E-6B5C-4D09-AF53-70E691BFF49C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegracjeWebService", "IntegracjeWebService\IntegracjeWebService.csproj", "{7854C306-ED76-4CB7-AB1A-71597103EDEE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6FB5D47E-6B5C-4D09-AF53-70E691BFF49C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FB5D47E-6B5C-4D09-AF53-70E691BFF49C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FB5D47E-6B5C-4D09-AF53-70E691BFF49C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7854C306-ED76-4CB7-AB1A-71597103EDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7854C306-ED76-4CB7-AB1A-71597103EDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7854C306-ED76-4CB7-AB1A-71597103EDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7854C306-ED76-4CB7-AB1A-71597103EDEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

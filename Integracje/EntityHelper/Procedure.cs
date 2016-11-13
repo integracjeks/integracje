@@ -32,7 +32,7 @@ namespace EntityHelper
                         try
                         {
                             result = db.Database
-                           .SqlQuery<Book>($"{Name} {ParameterName}", new SqlParameter(ParameterName, param))
+                           .SqlQuery<Book>(Name+" "+ParameterName, new SqlParameter(ParameterName, param))
                            .ToList();
                         }
                         catch (Exception e)
@@ -45,7 +45,7 @@ namespace EntityHelper
                         try
                         {
                             result = db.Database
-                           .SqlQuery<Book>($"{Name}")
+                           .SqlQuery<Book>(Name)
                            .ToList();
                         }
                         catch (Exception e)
