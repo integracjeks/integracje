@@ -22,15 +22,5 @@ namespace Integracje.UI.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://integracjeks.somee.com/WebService1.asmx")]
-        public string Integracje_UI_WebService1_WebService1 {
-            get {
-                return ((string)(this["Integracje_UI_WebService1_WebService1"]));
-            }
-        }
     }
 }

@@ -22,12 +22,12 @@ namespace Integracje.UI.ViewModel
                 {
                     try
                     {
-                        var ws = new WebService1.WebService1();
-                        ws.CookieContainer = new System.Net.CookieContainer();
+                        //var ws = new WebService1();
+                        //ws.CookieContainer = new System.Net.CookieContainer();
 
-                        OutputTextBox = ws.HelloWorld();
+                        //OutputTextBox =  ws.HelloWorld();// .HelloWorld();
 
-                        return;
+                        //return;
                         SelectedProcedure.Parameter = ParameterTextBox;
                         Result = SelectedProcedure.GetResult();
 
