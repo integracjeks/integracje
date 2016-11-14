@@ -1,4 +1,6 @@
 ﻿using EntityHelper;
+using Integracje.UI.SrvBook;
+using Newtonsoft.Json;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Procedure = Integracje.UI.SrvBook.Procedure;
 
 namespace Integracje.UI.ViewModel
 {
@@ -22,15 +25,13 @@ namespace Integracje.UI.ViewModel
                 {
                     try
                     {
-                        //var ws = new WebService1();
-                        //ws.CookieContainer = new System.Net.CookieContainer();
-
-                        //OutputTextBox =  ws.HelloWorld();// .HelloWorld();
-
-                        //return;
                         SelectedProcedure.Parameter = ParameterTextBox;
-                        Result = SelectedProcedure.GetResult();
-
+                        
+                        var ws = new BookService();
+                        var resultJson = ws.GetResultFromProcedure(SelectedProcedure);
+                        
+                        Result = JsonConvert.DeserializeObject<ResultFromProcedure>(resultJson);
+                        
                         if (Result.HasError)
                         {
                             if (Result.WrongParameter)
