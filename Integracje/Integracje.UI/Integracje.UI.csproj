@@ -153,6 +153,10 @@
       <Project>{B286D6D8-F943-4AD1-8DD4-9C34263B6014}</Project>
       <Name>EntityHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Integracje.Web\Integracje.Web.csproj">
+      <Project>{FAD5E3EF-DCAE-4860-A0CA-467221D6027D}</Project>
+      <Name>Integracje.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

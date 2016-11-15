@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using EntityHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,23 @@ namespace Integracje.Web
         [WebMethod]
         public string GetResultFromProcedure(EntityHelper.Procedure procedure)
         {
-            var info = HttpContext.Current.Request.UserHostAddress;//  Current.Request.UserHostAddress 
+            ResultFromProcedure result;
 
-            var result = procedure.GetResult();
+            var logger = new Logger(HttpContext.Current.Request.UserHostAddress, DateTime.Now, procedure.Name);
+            var actvitiesCount = logger.GetActivitiesCountOfLastTenMinutes();
+
+            if (actvitiesCount==-1)
+            {
+                result = new ResultFromProcedure { HasError = true, ErrorMessage = "Blad podczas logowania" };
+            }
+            else if (actvitiesCount<=3)
+            {
+                result = procedure.GetResult();
+            }
+            else
+            {
+                result = new ResultFromProcedure { HasError = true, ErrorMessage = "Przekroczyles ilosc zapytan" };
+            }
 
             var resultJson = JsonConvert.SerializeObject(result);
 
