@@ -17,53 +17,65 @@ namespace Integracje.UI.ViewModel
 {
     public class MainPageViewModel : BaseViewModel
     {
+        private ICommand m_DownloadCommand;
         public ICommand DownloadCommand
         {
             get
             {
-                return new DelegateCommand(() =>
+                if (m_DownloadCommand == null)
                 {
-                    try
-                    {
-                        SelectedProcedure.Parameter = ParameterTextBox;
-                        
-                        var ws = new BookService();
-                        var resultJson = ws.GetResultFromProcedure(SelectedProcedure);
-                        
-                        Result = JsonConvert.DeserializeObject<ResultFromProcedure>(resultJson);
-                        
-                        if (Result.HasError)
-                        {
-                            if (Result.WrongParameter)
-                            {
-                                OutputTextBox = "Zły parametr";
-                            }
-                            else
-                            {
-                                OutputTextBox = Result.ErrorMessage;
-                            }
-                            DeleteFile();
-                        }
-                        else
-                        {
-                            if (Result.EmptyResult)
-                            {
-                                OutputTextBox = "Brak rekordów";
-                                DeleteFile();
-                            }
-                            else
-                            {
-                                OutputTextBox = Result.Xml;
-                                CreateXmlFile();
-                            }
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        OutputTextBox = e.Message;
-                    }
-                });
+                    m_DownloadCommand = new DelegateCommand(ExecuteSelectedProcedure, CanExecuteDownloadCommand);
+                }
+                return m_DownloadCommand;
             }
+        }
+
+        private void ExecuteSelectedProcedure()
+        {
+            try
+            {
+                SelectedProcedure.Parameter = ParameterTextBox;
+
+                var ws = new BookService();
+                var resultJson = ws.GetResultFromProcedure(SelectedProcedure);
+
+                Result = JsonConvert.DeserializeObject<ResultFromProcedure>(resultJson);
+
+                if (Result.HasError)
+                {
+                    if (Result.WrongParameter)
+                    {
+                        OutputTextBox = "Zły parametr";
+                    }
+                    else
+                    {
+                        OutputTextBox = Result.ErrorMessage;
+                    }
+                    DeleteFile();
+                }
+                else
+                {
+                    if (Result.EmptyResult)
+                    {
+                        OutputTextBox = "Brak rekordów";
+                        DeleteFile();
+                    }
+                    else
+                    {
+                        OutputTextBox = Result.Xml;
+                        CreateXmlFile();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                OutputTextBox = e.Message;
+            }
+        }
+
+        private bool CanExecuteDownloadCommand()
+        {
+            return SelectedProcedure != null ? true : false;
         }
 
         private string path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
@@ -108,7 +120,11 @@ namespace Integracje.UI.ViewModel
         public Procedure SelectedProcedure
         {
             get { return m_SelectedProcedure; }
-            set { SetProperty(ref m_SelectedProcedure, value); }
+            set
+            {
+                SetProperty(ref m_SelectedProcedure, value);
+                ((DelegateCommand)DownloadCommand).RaiseCanExecuteChanged();
+            }
         }
 
         private ObservableCollection<Procedure> m_Procedures;
