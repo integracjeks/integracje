@@ -1,16 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EntityHelper
 {
     public class Logger
     {
+        #region Fields
+
         private DateTime dateTime;
         private string info;
         private string name;
+
+        #endregion Fields
+
+        #region Constructors
 
         public Logger(string info, DateTime dateTime, string name)
         {
@@ -21,23 +24,9 @@ namespace EntityHelper
             Log();
         }
 
-        private void Log()
-        {
-            using (var db = new DbLogsContext())
-            {
-                try
-                {
-                    var log = db.CreateDefaultLog();
-                    log.data = dateTime;
-                    log.procedure_name = name;
-                    log.ip = info;
+        #endregion Constructors
 
-                    db.DbLogs.Add(log);
-                    db.SaveChanges();
-                }
-                catch { }
-            }
-        }
+        #region Methods
 
         public int GetActivitiesCountOfLastTenMinutes()
         {
@@ -58,9 +47,25 @@ namespace EntityHelper
                 }
             }
         }
+
+        private void Log()
+        {
+            using (var db = new DbLogsContext())
+            {
+                try
+                {
+                    var log = db.CreateDefaultLog();
+                    log.data = dateTime;
+                    log.procedure_name = name;
+                    log.ip = info;
+
+                    db.DbLogs.Add(log);
+                    db.SaveChanges();
+                }
+                catch { }
+            }
+        }
+
+        #endregion Methods
     }
 }
-
-
-
-

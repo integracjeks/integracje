@@ -10,10 +10,28 @@ namespace EntityHelper
 {
     public class Procedure
     {
+        #region Properties
+
+        public bool HasParameter { get; set; }
         public string Name { get; set; }
         public string Parameter { get; set; }
         public string ParameterName { get; set; }
-        public bool HasParameter { get; set; }
+
+        #endregion Properties
+
+        #region Methods
+
+        public XmlDocument GetEntityXml<T>(List<Book> result)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            XPathNavigator nav = xmlDoc.CreateNavigator();
+            using (XmlWriter writer = nav.AppendChild())
+            {
+                XmlSerializer ser = new XmlSerializer(typeof(List<T>), new XmlRootAttribute("Books"));
+                ser.Serialize(writer, result);
+            }
+            return xmlDoc;
+        }
 
         public ResultFromProcedure GetResult()
         {
@@ -32,7 +50,7 @@ namespace EntityHelper
                         try
                         {
                             result = db.Database
-                           .SqlQuery<Book>(Name+" "+ParameterName, new SqlParameter(ParameterName, param))
+                           .SqlQuery<Book>(Name + " " + ParameterName, new SqlParameter(ParameterName, param))
                            .ToList();
                         }
                         catch (Exception e)
@@ -68,16 +86,6 @@ namespace EntityHelper
             }
         }
 
-        public XmlDocument GetEntityXml<T>(List<Book> result)
-        {
-            XmlDocument xmlDoc = new XmlDocument();
-            XPathNavigator nav = xmlDoc.CreateNavigator();
-            using (XmlWriter writer = nav.AppendChild())
-            {
-                XmlSerializer ser = new XmlSerializer(typeof(List<T>), new XmlRootAttribute("Books"));
-                ser.Serialize(writer, result);
-            }
-            return xmlDoc;
-        }
+        #endregion Methods
     }
 }

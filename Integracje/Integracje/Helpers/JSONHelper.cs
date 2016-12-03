@@ -6,10 +6,15 @@ using System.IO;
 
 namespace Integracje.Helpers
 {
-    class JSONHelper
+    internal class JSONHelper
     {
+        #region Fields
+
         private const string fileName = "MOCK_DATA.json";
-        public List<Book> BookList { get; private set; }
+
+        #endregion Fields
+
+        #region Constructors
 
         public JSONHelper()
         {
@@ -17,5 +22,13 @@ namespace Integracje.Helpers
             string json = File.ReadAllText(path);
             BookList = JsonConvert.DeserializeObject<List<Book>>(json);
         }
+
+        #endregion Constructors
+
+        #region Properties
+
+        public List<Book> BookList { get; private set; }
+
+        #endregion Properties
     }
 }

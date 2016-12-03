@@ -2,18 +2,26 @@ namespace EntityHelper
 {
     using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     public partial class DbLogsContext : DbContext
     {
+        #region Constructors
+
         public DbLogsContext()
             : base("name=DbLogsContext")
         {
         }
 
+        #endregion Constructors
+
+        #region Properties
+
         public virtual DbSet<DbLog> DbLogs { get; set; }
 
+        #endregion Properties
+
+        #region Methods
 
         public DbLog CreateDefaultLog()
         {
@@ -26,7 +34,6 @@ namespace EntityHelper
             };
         }
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DbLog>()
@@ -37,5 +44,7 @@ namespace EntityHelper
                 .Property(e => e.procedure_name)
                 .IsFixedLength();
         }
+
+        #endregion Methods
     }
 }

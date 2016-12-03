@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Integracje.Helpers;
+﻿using Integracje.Helpers;
+using System;
 
 namespace Integracje
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        #region Methods
+
+        private static void Main(string[] args)
         {
             var helper = new SQLHelper();
             helper.CreateDatabase();
@@ -24,5 +22,7 @@ namespace Integracje
             Console.WriteLine("\nEnter to exit...");
             Console.ReadLine();
         }
+
+        #endregion Methods
     }
 }

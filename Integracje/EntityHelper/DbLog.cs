@@ -1,17 +1,17 @@
 namespace EntityHelper
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class DbLog
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int id { get; set; }
+        #region Properties
 
         public DateTime data { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int id { get; set; }
 
         [Required]
         [StringLength(45)]
@@ -19,5 +19,7 @@ namespace EntityHelper
 
         [StringLength(100)]
         public string procedure_name { get; set; }
+
+        #endregion Properties
     }
 }

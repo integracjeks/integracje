@@ -1,8 +1,6 @@
 ﻿using EntityHelper;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Services;
 
@@ -14,10 +12,11 @@ namespace Integracje.Web
     [WebService(Namespace = "http://integracjeks.somee.com/BookService.asmx")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
-    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
+    // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
     // [System.Web.Script.Services.ScriptService]
     public class BookService : System.Web.Services.WebService
     {
+        #region Methods
 
         [WebMethod]
         public string GetResultFromProcedure(EntityHelper.Procedure procedure)
@@ -27,11 +26,11 @@ namespace Integracje.Web
             var logger = new Logger(HttpContext.Current.Request.UserHostAddress, DateTime.Now, procedure.Name);
             var actvitiesCount = logger.GetActivitiesCountOfLastTenMinutes();
 
-            if (actvitiesCount==-1)
+            if (actvitiesCount == -1)
             {
                 result = new ResultFromProcedure { HasError = true, ErrorMessage = "Blad podczas logowania" };
             }
-            else if (actvitiesCount<=3)
+            else if (actvitiesCount <= 3)
             {
                 result = procedure.GetResult();
             }
@@ -44,5 +43,7 @@ namespace Integracje.Web
 
             return resultJson;
         }
+
+        #endregion Methods
     }
 }
